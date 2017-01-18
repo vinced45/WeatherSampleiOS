@@ -27,15 +27,13 @@ Pod::Spec.new do |s|
 
   s.source                      = { :git => "https://github.com/vinced45/quick-build-kit-apple.git", :tag => s.version.to_s }
 
-  s.source_files                = ["QuickBuildKit/**/*.{swift,h,m}"]
-  s.watchos.exclude_files       = ["QuickBuildKit/Ads/*.{swift,h,m}", "QuickBuildKit/Bluetooth/*.{swift,h,m}", "QuickBuildKit/Photos/*.{swift,h,m}", "QuickBuildKit/Search/*.{swift,h,m}", "QuickBuildKit/Speech/*.{swift,h,m}", "QuickBuildKit/Sounds/*.{swift,h,m}", "QuickBuildKit/StoreKit/*.{swift,h,m}", "QuickBuildKit/Animations/*.{swift,h,m}", "QuickBuildKit/Controllers/*.{swift,h,m}"]
-  s.watchos.resource_bundles    = { 'Main' => ["Watch/Main.storyboard"] }
+  s.source_files                = ["WeatherKit/*.{swift,h,m}", "WeatherKit/**/*.{swift,h,m}"]
 
-  s.watchos.frameworks          = "CloudKit", "CoreLocation", "Foundation", "HealthKit", "MapKit", "PassKit"
-  s.ios.frameworks              = "AudioToolbox", "AVFoundation", "CloudKit", "Contacts", "CoreBluetooth", "CoreLocation", "CoreSpotlight", "EventKit", "Foundation", "HealthKit", "MapKit", "MobileCoreServices", "PassKit", "Photos", "Speech", "UIKit", "UserNotifications", "WatchConnectivity"
+  s.frameworks          = "CoreLocation", "Foundation", "MapKit"
 
   s.requires_arc                = true
 
   s.dependency                  'RealmSwift', '~> 2.0.0'
+  s.dependency                  'SwiftyJSON'
 
 end

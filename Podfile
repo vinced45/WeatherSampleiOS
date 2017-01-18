@@ -8,7 +8,8 @@ target 'WeatherKit' do
 
   # Pods for WeatherKit
   pod 'RealmSwift', '~> 2.0.0'
-  #pod 'mopub-ios-sdk'
+  pod 'SwiftyJSON'
+  
   target 'WeatherKitTests' do
       inherit! :search_paths
       # Pods for testing
