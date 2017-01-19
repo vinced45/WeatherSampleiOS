@@ -10,9 +10,10 @@ import UIKit
 import WeatherKit
 import RealmSwift
 import CoreLocation
+import BRYXBanner
 
 class WeatherViewController: UITableViewController, RealmFetchable {
-
+    
     let weather: WeatherKit = WeatherKit()
     
     var savedLocations: Results<Forecast>?
@@ -25,6 +26,8 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     
     var timer: Timer?
     
+    let MTRed = #colorLiteral(red: 0.8378046751, green: 0.01143348496, blue: 0.112503089, alpha: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,10 +35,11 @@ class WeatherViewController: UITableViewController, RealmFetchable {
         self.tableView.registerCell(WeatherTableViewCell.self)
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        refresh = UIRefreshControl()
-        refresh.attributedTitle = NSAttributedString(string: "Pull to update")
-        refresh?.addTarget(self, action: #selector(updateConditions), for: .valueChanged)
-        self.tableView.addSubview(refresh)
+        setupPullToRefresh()
+        
+        SSASwiftReachability.sharedManager?.startMonitoring()
+        // MARK: Listen For Network Reachability Changes
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityStatusChanged(notification:)), name: NSNotification.Name(rawValue: SSAReachabilityDidChangeNotification), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,18 +54,18 @@ class WeatherViewController: UITableViewController, RealmFetchable {
         stopTimer()
         stopFetches()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let locations = savedLocations {
             return (section == 0) ? 1 : locations.count
@@ -79,33 +83,18 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         
-        var forecast = Forecast()
         if indexPath.section == 0 {
-            if let f = currentLocation?.first {
-                forecast = f
+            if let forecast = currentLocation?.first {
+                cell = update(cell: cell, forecast: forecast)
             } else {
-                DispatchQueue.main.async {
-                    cell.nameLabel.text = "No conditions avaiable"
-                    cell.tempLabel.text = "--°"
-                    cell.iconLabel.text = ""
-                    cell.topDetailLabel.text = ""
-                    cell.bottomDetailLabel.text = ""
-                }
+                cell = update(cell: cell, forecast: nil)
             }
         } else {
-            if let f = savedLocations?[indexPath.row] {
-                forecast = f
+            if let forecast = savedLocations?[indexPath.row] {
+                cell = update(cell: cell, forecast: forecast)
             }
-        }
-        
-        DispatchQueue.main.async {
-            cell.nameLabel.text = forecast.city
-            cell.tempLabel.text = "\(Int(round(forecast.temp)))°"
-            cell.iconLabel.text = forecast.getEmoji()
-            cell.topDetailLabel.text = "UTC: \(forecast.timezone) ● Last Updated: \(forecast.updatedAt.shortStyle())"
-            cell.bottomDetailLabel.text = "Humidity: \(forecast.humidity)% ● Windspeed: \(forecast.windspeed) mph"
         }
         
         return cell
@@ -113,10 +102,9 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
     }
     
-
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
@@ -176,12 +164,72 @@ extension WeatherViewController {
                     case let .success(forecast):
                         self.weather.save(forecast: forecast)
                     default:
-                        print("error")
+                        print("error updating conditions")
                     }
                 }
             }
         }
-        weather.startLocation()
+        weather.startLocation() { result in
+            switch result {
+            case let .error(error):
+                print("location error - \(error)")
+            default:
+                print("update conditions default")
+            }
+        }
         refresh?.endRefreshing()
+    }
+    
+    func setupPullToRefresh() {
+        refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to update")
+        refresh?.addTarget(self, action: #selector(updateConditions), for: .valueChanged)
+        self.tableView.addSubview(refresh)
+    }
+    
+    func update(cell: WeatherTableViewCell, forecast: Forecast?) -> WeatherTableViewCell {
+        if let forecast = forecast {
+            DispatchQueue.main.async {
+                cell.nameLabel.text = forecast.city
+                cell.tempLabel.text = "\(Int(round(forecast.temp)))°"
+                cell.iconLabel.text = forecast.getEmoji()
+                cell.topDetailLabel.text = "UTC: \(forecast.timezone) ● Last Updated: \(forecast.updatedAt.shortStyle())"
+                cell.bottomDetailLabel.text = "Humidity: \(forecast.humidity)% ● Windspeed: \(forecast.windspeed) mph"
+            }
+        } else {
+            DispatchQueue.main.async {
+                cell.nameLabel.text = "No conditions avaiable"
+                cell.tempLabel.text = "--°"
+                cell.iconLabel.text = ""
+                cell.topDetailLabel.text = ""
+                cell.bottomDetailLabel.text = ""
+            }
+        }
+        
+        return cell
+    }
+}
+
+// MARK: Reachability Methods
+extension WeatherViewController {
+    func reachabilityStatusChanged(notification: NSNotification) {
+        if let info = notification.userInfo {
+            if let status = info[SSAReachabilityNotificationStatusItem] as? String {
+                switch status {
+                case "unknown", "notReachable":
+                    showNoInternetBanner()
+                default:
+                    print("reachable")
+                }
+            }
+        }
+    }
+    
+    func showNoInternetBanner() {
+        DispatchQueue.main.async {
+            let banner = Banner(title: "No Internet", subtitle: "Please check your connection and try again", image:nil, backgroundColor: self.MTRed)
+            banner.dismissesOnTap = true
+            banner.show(duration: 3.0)
+        }
     }
 }

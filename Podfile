@@ -20,6 +20,7 @@ end
 target 'WeatherSampleiOS' do
     #inherit! :search_paths
     pod 'WeatherKit', :path => '.'
+    pod 'BRYXBanner'
 end
 
 target 'Watch Extension' do
