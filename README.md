@@ -27,11 +27,12 @@ Take a look at Demo project or the Playgrounds.
 - [ ] Wire up Today Widget
 - [ ] Wire up Watch Extension
 
-## Usage
+## Installation
 
-Via [CocoaPods](http://cocoapods.org):
-
-* Add `pod 'WeatherKit', '~> 0.0.1'` to your project's `Podfile`
+* Download or clone this repo.
+* Run `pod install` from inside project folder.
+* Open project with WeatherSampeiOS.workspace file
+* Build and Run
 
 ## Using WeatherKit code
 
@@ -54,6 +55,7 @@ weather.getForecast(location) { result in
 * iOS >= 10.0
 * WatchOS >= 3.0
 * Xcode 8
+* CocoaPods
 
 ## License
 
