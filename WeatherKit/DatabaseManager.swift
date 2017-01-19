@@ -9,21 +9,16 @@
 import Foundation
 import RealmSwift
 
-let realm = RealmManager()
+let db = DatabaseManager()
 
-class RealmManager: NSObject {
+class DatabaseManager: NSObject {
     
     // MARK: Properties
     
     let queue = DispatchQueue(label: "Realm Queue")
     var displayRealmUrl = true
     var realmUrl: URL?
-    
-    var realmPath: String?
-    
-    var migrationBlock: MigrationBlock?
-    var schemaVersion: UInt64 = 0
-    var objects: [Object.Type]?
+
     
     enum RealmResult {
         case success
@@ -40,10 +35,8 @@ class RealmManager: NSObject {
         queue.async {
             log.debug("")
             
-            let realmDirectory: String = (path.isEmpty) ? self.realmPath! : path
-            let (realmOptional, error) = self.getRealmWithError(realmDirectory)
-            guard let realm = realmOptional else {
-                completion?(RealmResult.error(error!))
+            guard let realm = self.getRealm() else {
+                completion?(RealmResult.error(WeatherError.default()))
                 return
             }
             do {
@@ -61,10 +54,8 @@ class RealmManager: NSObject {
         queue.async {
             log.debug("")
             
-            let realmDirectory: String = (path.isEmpty) ? self.realmPath! : path
-            let (realmOptional, error) = self.getRealmWithError(realmDirectory)
-            guard let realm = realmOptional else {
-                completion?(RealmResult.error(error!))
+            guard let realm = self.getRealm() else {
+                completion?(RealmResult.error(WeatherError.default()))
                 return
             }
             
@@ -91,10 +82,8 @@ class RealmManager: NSObject {
         queue.async {
             log.debug("")
             
-            let realmDirectory: String = (path.isEmpty) ? self.realmPath! : path
-            let (realmOptional, error) = self.getRealmWithError(realmDirectory)
-            guard let realm = realmOptional else {
-                completion?(RealmResult.error(error!))
+            guard let realm = self.getRealm() else {
+                completion?(RealmResult.error(WeatherError.default()))
                 return
             }
             let results = realm.objects(T.self).filter("id = '\(id)'")
@@ -113,61 +102,38 @@ class RealmManager: NSObject {
         //queue.async {
         log.debug("")
         
-        let realmDirectory: String = (path.isEmpty) ? self.realmPath! : path
-        let (realmOptional, _) = self.getRealmWithError(realmDirectory)
-        guard let realm = realmOptional else { return nil }
+        guard let realm = getRealm() else { return nil }
         let results = realm.objects(T.self).filter(predicate).sorted(byProperty: sort, ascending: ascending)
         return results
         //}
     }
-    
-    // MARK: Migration
-    
-    internal func internalSchemaVersion() -> UInt64 {
-        return 1
-    }
-    
-    // swiftlint:disable cyclomatic_complexity
-    internal func internalMigrationBlock() -> MigrationBlock {
-        return { (migration, oldSchemaVersion) in
+}
+
+// MARK: - Private
+extension DatabaseManager {
+    internal func getRealm() -> Realm? {
+
+        var config = Realm.Configuration()
+        if displayRealmUrl {
+            displayRealmUrl = false
+            print("realm is at \(config.fileURL)")
+        }
+
+        
+        config.schemaVersion = 1
+        config.migrationBlock = { (migration, oldSchemaVersion) in
             if oldSchemaVersion < 1 {
                 
             }
         }
-    }
-}
+        
+        config.objectTypes = [Forecast.self]
 
-// MARK: - Private
-extension RealmManager {
-    internal func getRealmWithError(_ path: String = "") -> (Realm?, Swift.Error?) {
-        let tempUrl = URL(string: path)
-        guard var url = tempUrl else {
-            return (nil, WeatherError.default())
-        }
-        
-        url.appendPathComponent("default.realm")
-        realmUrl = url
-        
-        if displayRealmUrl {
-            displayRealmUrl = false
-            print("realm is at \(realmUrl!)")
-        }
-        
-        var config = Realm.Configuration()
-        config.fileURL = realmUrl
-        
-        config.schemaVersion = (schemaVersion > 0) ? schemaVersion : internalSchemaVersion()
-        config.migrationBlock = (migrationBlock != nil) ? migrationBlock : internalMigrationBlock()
-        
-        if let objectTypes = objects {
-            config.objectTypes = objectTypes
-        }
-        
         do {
             let realm = try Realm(configuration: config)
-            return (realm, nil)
+            return realm
         } catch {
-            return (nil, WeatherError.default())
+            return nil
         }
     }
 }

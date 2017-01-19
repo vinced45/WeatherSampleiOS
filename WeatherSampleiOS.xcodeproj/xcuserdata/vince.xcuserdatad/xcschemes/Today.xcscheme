@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "61513EF51E2FAFA1005FC250"
-               BuildableName = "Today.appex"
+               BuildableName = "Weather Demo.appex"
                BlueprintName = "Today"
                ReferencedContainer = "container:WeatherSampleiOS.xcodeproj">
             </BuildableReference>
@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "61513ECE1E2FAF7A005FC250"
-               BuildableName = "WeatherSampleiOS.app"
+               BuildableName = "Weather Demo.app"
                BlueprintName = "WeatherSampleiOS"
                ReferencedContainer = "container:WeatherSampleiOS.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "61513EF51E2FAFA1005FC250"
-            BuildableName = "Today.appex"
+            BuildableName = "Weather Demo.appex"
             BlueprintName = "Today"
             ReferencedContainer = "container:WeatherSampleiOS.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "61513ECE1E2FAF7A005FC250"
-            BuildableName = "WeatherSampleiOS.app"
+            BuildableName = "Weather Demo.app"
             BlueprintName = "WeatherSampleiOS"
             ReferencedContainer = "container:WeatherSampleiOS.xcodeproj">
          </BuildableReference>
@@ -92,7 +92,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "61513ECE1E2FAF7A005FC250"
-            BuildableName = "WeatherSampleiOS.app"
+            BuildableName = "Weather Demo.app"
             BlueprintName = "WeatherSampleiOS"
             ReferencedContainer = "container:WeatherSampleiOS.xcodeproj">
          </BuildableReference>

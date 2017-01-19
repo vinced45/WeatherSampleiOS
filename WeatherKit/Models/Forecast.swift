@@ -23,8 +23,40 @@ public class Forecast: Object {
     public dynamic var lon = 0.0
     public dynamic var summary = ""
     public dynamic var updatedAt = Date()
+    public dynamic var isCurrentLocation: Bool = false
     
     override public static func primaryKey() -> String? {
         return "id"
+    }
+    
+    public func getEmoji() -> String? {
+        switch self.icon {
+        case "clear-day":
+            return "☀️"
+        case "clear-night":
+            return "🌙"
+        case "rain":
+            return "🌧"
+        case "snow":
+            return "🌨"
+        case "wind":
+            return "💨"
+        case "fog":
+            return "🌫"
+        case "cloudy":
+            return "☁️"
+        case "partly-cloudy-day":
+            return "🌤"
+        case "partky-cloudy-night":
+            return "🌥"
+        case "hail":
+            return "❄️"
+        case "thunderstorm":
+            return "⛈"
+        case "tornado":
+            return "🌪"
+        default:
+            return "☀️"
+        }
     }
 }

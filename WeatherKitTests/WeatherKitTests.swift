@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import CoreLocation
+
 @testable import WeatherKit
 
 class WeatherKitTests: XCTestCase {
@@ -25,7 +27,8 @@ class WeatherKitTests: XCTestCase {
         let expectation = self.expectation(description: "Should be able to get forecast for given location")
         var forecast = Forecast()
         let weather = WeatherKit()
-        weather.getForecast("42.3601,-71.0589") { result in
+        let loc = CLLocationCoordinate2D(latitude: 42.3601, longitude: -71.058)
+        weather.getForecast(loc) { result in
             switch result {
             case let .success(f):
                 forecast = f

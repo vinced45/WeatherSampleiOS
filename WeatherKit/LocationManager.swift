@@ -11,28 +11,28 @@ import CoreLocation
 
 let location = LocationManager()
 
-public class LocationManager: NSObject {
+class LocationManager: NSObject {
     
     // MARK: - Properties
     
     let queue = DispatchQueue(label: "Location Queue")
     
-    var manager: CLLocationManager = CLLocationManager()
+    var manager: CLLocationManager?
     var locationType: LocationType = .always
     var monitors: [AnyHashable : Bool]?
     
-    public typealias LocationClosure = (_ result: LocationResult) -> Void
+    typealias LocationClosure = (_ result: LocationResult) -> Void
     var locationCallback: LocationClosure!
     
     // MARK: - Enums
     
-    public enum LocationType {
+    enum LocationType {
         case location
         case inUse
         case always
     }
     
-    public enum LocationResult {
+    enum LocationResult {
         #if os(iOS)
         case heading(CLHeading)
         case beacons([CLBeacon], CLBeaconRegion)
@@ -48,8 +48,9 @@ public class LocationManager: NSObject {
         case error(WeatherError)
     }
     
-    public enum MonitorType {
+    enum MonitorType {
         case location
+        case locationOneTime
         #if os(iOS)
         case significant
         case region(CLRegion)
@@ -59,14 +60,15 @@ public class LocationManager: NSObject {
         #endif
     }
     
-    // MARK: - Public Methods
+    // MARK: - Methods
     
-    public func start(_ monitorType: MonitorType = .location, result: LocationClosure? = nil) {
+    func start(_ monitorType: MonitorType = .locationOneTime, result: LocationClosure? = nil) {
         if let callback = result {
             locationCallback = callback
         }
+        manager = CLLocationManager()
         
-        manager.delegate = self
+        manager?.delegate = self
         
         if !requestAuth() {
             locationCallback(LocationResult.error(WeatherError.permissions()))
@@ -75,57 +77,69 @@ public class LocationManager: NSObject {
         #if os(iOS)
             switch monitorType {
             case .location:
-                manager.startUpdatingLocation()
+                manager?.startUpdatingLocation()
+            case .locationOneTime:
+                manager?.requestLocation()
             case .significant:
-                manager.startMonitoringSignificantLocationChanges()
+                manager?.startMonitoringSignificantLocationChanges()
             case let .region(region):
-                manager.startMonitoring(for: region)
+                manager?.startMonitoring(for: region)
             case let .beacon(region):
-                manager.startRangingBeacons(in: region)
+                manager?.startRangingBeacons(in: region)
             case .heading:
-                manager.startUpdatingHeading()
+                manager?.startUpdatingHeading()
             case .visit:
-                manager.startMonitoringVisits()
+                manager?.startMonitoringVisits()
             }
         #else
             switch monitorType {
             case .location:
-                manager.startUpdatingLocation()
+                manager?.startUpdatingLocation()
+            case .locationOneTime:
+                manager?.requestLocation()
             }
         #endif
     }
     
-    public func stop(_ monitorType: MonitorType = .location) {
-        manager.delegate = self
+    func stop(_ monitorType: MonitorType = .location) {
+        manager?.delegate = self
         #if os(iOS)
             switch monitorType {
             case .location:
-                manager.startUpdatingLocation()
+                manager?.stopUpdatingLocation()
+            case .locationOneTime:
+                manager?.stopUpdatingLocation()
             case .significant:
-                manager.startMonitoringSignificantLocationChanges()
+                manager?.stopMonitoringSignificantLocationChanges()
             case let .region(region):
-                manager.startMonitoring(for: region)
+                manager?.stopMonitoring(for: region)
             case let .beacon(region):
-                manager.startRangingBeacons(in: region)
+                manager?.stopRangingBeacons(in: region)
             case .heading:
-                manager.startUpdatingHeading()
+                manager?.stopUpdatingHeading()
             case .visit:
-                manager.startMonitoringVisits()
+                manager?.stopMonitoringVisits()
             }
         #else
             switch monitorType {
             case .location:
-                manager.startUpdatingLocation()
+                manager?.stopUpdatingLocation()
+            case .locationOneTime:
+                manager?.stopUpdatingLocation()
             }
         #endif
+        
+        manager = nil
     }
     
-    public func isMonitoring(_ monitorType: MonitorType = .location) -> Bool {
-        manager.delegate = self
+    func isMonitoring(_ monitorType: MonitorType = .location) -> Bool {
+        manager?.delegate = self
         #if os(iOS)
             switch monitorType {
             case .location:
                 return monitors!["location"] ?? false
+            case .locationOneTime:
+                return monitors!["locationOneTime"] ?? false
             case .significant:
                 return monitors!["significant"] ?? false
             case .region:
@@ -141,13 +155,15 @@ public class LocationManager: NSObject {
             switch monitorType {
             case .location:
                 return monitors!["location"] ?? false
+            case .locationOneTime:
+                return monitors!["locationOneTime"] ?? false
             }
         #endif
     }
     
-    public func listen(_ result: @escaping LocationClosure) {
+    func listen(_ result: @escaping LocationClosure) {
         locationCallback = result
-        manager.delegate = self
+        manager?.delegate = self
         
         if !requestAuth() {
             locationCallback(LocationResult.error(WeatherError.permissions()))
@@ -155,7 +171,7 @@ public class LocationManager: NSObject {
         }
     }
     
-    public func search(location: CLLocation, result: @escaping LocationClosure) {
+    func search(location: CLLocation, result: @escaping LocationClosure) {
         queue.async {
             log.debug("")
             
@@ -171,7 +187,7 @@ public class LocationManager: NSObject {
         }
     }
     
-    public func search(address: String, result: @escaping LocationClosure) {
+    func search(address: String, result: @escaping LocationClosure) {
         queue.async {
             log.debug("")
             
@@ -191,24 +207,24 @@ public class LocationManager: NSObject {
 // MARK: - Internal Methods
 extension LocationManager {
     internal func requestAuth() -> Bool {
-        manager.delegate = self
+        manager?.delegate = self
         plist.file("Info")
         switch locationType {
         case .location:
             if plist.alreadyExists(key: Permissions.location.rawValue) {
-                manager.requestLocation()
+                manager?.requestLocation()
                 return true
             }
             return false
         case .inUse:
             if plist.alreadyExists(key: Permissions.locationInUse.rawValue) {
-                manager.requestWhenInUseAuthorization()
+                manager?.requestWhenInUseAuthorization()
                 return true
             }
             return false
         case .always:
             if plist.alreadyExists(key: Permissions.locationAlways.rawValue) {
-                manager.requestAlwaysAuthorization()
+                manager?.requestAlwaysAuthorization()
                 return true
             }
             return false
@@ -219,47 +235,47 @@ extension LocationManager {
 // MARK: - CLLocationManager Delegates
 extension LocationManager: CLLocationManagerDelegate {
     #if os(iOS)
-    public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         locationCallback(LocationResult.heading(newHeading))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         locationCallback(LocationResult.regionState(state, region))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         locationCallback(LocationResult.beacons(beacons, region))
     }
     
-    public func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
+    func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
         locationCallback(LocationResult.error(WeatherError.default()))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+    func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
         locationCallback(LocationResult.visit(visit))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         locationCallback(LocationResult.enterRegion(region))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         locationCallback(LocationResult.exitRegion(region))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         locationCallback(LocationResult.monitor(region))
     }
     #endif
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locationCallback(LocationResult.locations(locations))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationCallback(LocationResult.authorization(status))
     }
     
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationCallback(LocationResult.error(WeatherError.init(errorType: error)))
     }
 }
