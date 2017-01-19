@@ -36,9 +36,16 @@ Via [CocoaPods](http://cocoapods.org):
 ## Using WeatherKit code
 
 ```swift
-
-
-
+let weather = WeatherKit()
+let location = CLLocationCoordinate2D(latitude: 42.3601, longitude: -71.058)
+weather.getForecast(location) { result in
+    switch result {
+    case let .success(forecast):
+        print("Forecast City - \(forecast.city)")
+    case let .error(error):
+        print("error - \(error)")
+    }
+}
 ```
 
 ## Requirements
