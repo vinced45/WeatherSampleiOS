@@ -24,7 +24,7 @@ Take a look at Demo project or the Playgrounds.
 ## Todo
 
 - [ ] Make it look pretty
-- [ ] Wire up Today Widget
+- [x] Wire up Today Widget
 - [ ] Wire up Watch Extension
 
 ## Installation

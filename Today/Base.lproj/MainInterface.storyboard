@@ -13,7 +13,7 @@
         <!--Today View Controller-->
         <scene sceneID="cwh-vc-ff4">
             <objects>
-                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Today" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Weather_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
@@ -59,6 +59,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Gua-Nb-ald" firstAttribute="centerY" secondItem="OhC-gx-2sz" secondAttribute="centerY" id="4ag-jP-OMh"/>
                             <constraint firstItem="Gua-Nb-ald" firstAttribute="leading" secondItem="ud8-WD-oSd" secondAttribute="leading" id="5Xf-AK-Lj3"/>
@@ -78,6 +79,9 @@
                             <constraint firstItem="LW4-3P-P5K" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" constant="-6" id="uOL-tD-AwO"/>
                             <constraint firstItem="ud8-WD-oSd" firstAttribute="top" secondItem="LW4-3P-P5K" secondAttribute="bottom" constant="20" id="y7r-cO-scc"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="WkN-SU-WDP" appends="YES" id="Oyf-Yr-WbA"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -94,6 +98,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="WkN-SU-WDP">
+                    <connections>
+                        <action selector="openApp:" destination="M4Y-Lb-cyx" id="cJb-3N-gbi"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.59999999999999" y="125.03748125937032"/>
         </scene>

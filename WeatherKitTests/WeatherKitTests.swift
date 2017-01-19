@@ -36,6 +36,8 @@ class WeatherKitTests: XCTestCase {
                 expectation.fulfill()
             case let .error(error):
                 XCTFail("error - \(error)")
+            default:
+                XCTFail("default")
             }
         }
         

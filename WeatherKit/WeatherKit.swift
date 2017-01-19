@@ -64,7 +64,7 @@ public class WeatherKit: NSObject {
      Start monitoring for location services. Once it starts monitoring location it will get forecast info and save to database
 
      */
-    public func startLocation(_ completion: WeatherClosure? = nil) {
+    public func startLocation(_ completion: @escaping WeatherClosure) {
         location.start() { result in
             switch result {
             case let .locations(locations):
@@ -73,22 +73,16 @@ public class WeatherKit: NSObject {
                     case let .success(forecast):
                         forecast.id = "Current"
                         forecast.isCurrentLocation = true
-                        if let closure = completion {
-                            closure(WeatherResult.success(forecast))
-                        }
+                        completion(WeatherResult.success(forecast))
                         location.stop()
                         self.save(forecast: forecast)
                     case let .error(error):
                         log.error(error)
-                        if let closure = completion {
-                            closure(WeatherResult.error(error))
-                        }
+                        completion(WeatherResult.error(error))
                         location.stop()
                     default:
                         log.error(WeatherError.default())
-                        if let closure = completion {
-                                closure(WeatherResult.error(WeatherError.default()))
-                        }
+                        completion(WeatherResult.error(WeatherError.default()))
                     }
                 }
             default:

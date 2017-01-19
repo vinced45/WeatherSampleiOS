@@ -69,6 +69,8 @@ class LocationManager: NSObject {
         manager = CLLocationManager()
         
         manager?.delegate = self
+        manager?.desiredAccuracy = kCLLocationAccuracyKilometer
+        
         
         if !requestAuth() {
             locationCallback(LocationResult.error(WeatherError.permissions()))
