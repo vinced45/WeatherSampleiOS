@@ -156,7 +156,7 @@ open class SSASwiftReachability {
         
         
         // Get Initial Reachability Status
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags()
             SCNetworkReachabilityGetFlags(reachability, &flags)
             let status: ReachabilityStatus = self.reachabilityStatus(flags)
