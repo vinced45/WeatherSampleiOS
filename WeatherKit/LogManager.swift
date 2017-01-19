@@ -10,12 +10,12 @@ import Foundation
 
 let `log` = LogManager()
 
-public class LogManager: NSObject {
+class LogManager: NSObject {
     
     // MARK: Properties
     
     /// The log level for project. Default is `debug` which is all
-    public var logLevel: LogType = .debug
+    var logLevel: LogType = .debug
     
     // MARK: Enums
     
@@ -30,7 +30,7 @@ public class LogManager: NSObject {
      case error
      ```
      */
-    public enum LogType: Int {
+    enum LogType: Int {
         /// Not important logging
         case verbose = -1
         /// Something you want to debug
@@ -66,7 +66,7 @@ public class LogManager: NSObject {
      
      - Parameter: **object**    The object that you want logged
      */
-    public func verbose<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    func verbose<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log(object, .verbose, file, function, line)
     }
     
@@ -75,7 +75,7 @@ public class LogManager: NSObject {
      
      - Parameter: **object**    The object that you want logged
      */
-    public func debug<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    func debug<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log(object, .debug, file, function, line)
     }
     
@@ -84,7 +84,7 @@ public class LogManager: NSObject {
      
      - Parameter: **object**    The object that you want logged
      */
-    public func info<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    func info<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log(object, .info, file, function, line)
     }
     
@@ -93,7 +93,7 @@ public class LogManager: NSObject {
      
      - Parameter: **object**    The object that you want logged
      */
-    public func warning<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    func warning<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log(object, .warning, file, function, line)
     }
     
@@ -102,11 +102,11 @@ public class LogManager: NSObject {
      
      - Parameter: **object**    The object that you want logged
      */
-    public func error<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    func error<T>(_ object: @autoclosure () -> T, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log(object, .error, file, function, line)
     }
     
-    public func saveLog() {
+    func saveLog() {
         // let pathForLog = Quick.file
         
         //freopen(pathForLog.cString(usingEncoding: NSASCIIStringEncoding)!, "a+", stderr)

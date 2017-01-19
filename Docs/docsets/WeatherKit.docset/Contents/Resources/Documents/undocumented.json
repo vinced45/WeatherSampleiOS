@@ -1,0 +1,341 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 11,
+      "symbol": "Permissions",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 17,
+      "symbol": "Permissions.bluetooth",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 18,
+      "symbol": "Permissions.calendar",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 19,
+      "symbol": "Permissions.camera",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 20,
+      "symbol": "Permissions.contacts",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 21,
+      "symbol": "Permissions.healthShare",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 22,
+      "symbol": "Permissions.healthUpdate",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 23,
+      "symbol": "Permissions.homeKit",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 24,
+      "symbol": "Permissions.location",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 25,
+      "symbol": "Permissions.locationAlways",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 26,
+      "symbol": "Permissions.locationInUse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 27,
+      "symbol": "Permissions.microphone",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 28,
+      "symbol": "Permissions.motion",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 29,
+      "symbol": "Permissions.photos",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 30,
+      "symbol": "Permissions.reminders",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 31,
+      "symbol": "Permissions.siri",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 32,
+      "symbol": "Permissions.speech",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Enums.swift",
+      "line": 33,
+      "symbol": "Permissions.tvProvider",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 13,
+      "symbol": "Forecast",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 15,
+      "symbol": "Forecast.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 16,
+      "symbol": "Forecast.timezone",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 17,
+      "symbol": "Forecast.city",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 18,
+      "symbol": "Forecast.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 19,
+      "symbol": "Forecast.temp",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 20,
+      "symbol": "Forecast.windspeed",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 21,
+      "symbol": "Forecast.humidity",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 22,
+      "symbol": "Forecast.lat",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 23,
+      "symbol": "Forecast.lon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 24,
+      "symbol": "Forecast.summary",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 25,
+      "symbol": "Forecast.updatedAt",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 26,
+      "symbol": "Forecast.isCurrentLocation",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 28,
+      "symbol": "Forecast.primaryKey()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/Models/Forecast.swift",
+      "line": 32,
+      "symbol": "Forecast.getEmoji()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": null,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": null,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": null,
+      "symbol": "NetworkManager",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 96,
+      "symbol": "NetworkManager.urlSession(_:task:didCompleteWithError:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 104,
+      "symbol": "NetworkManager.urlSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 110,
+      "symbol": "NetworkManager.urlSession(_:dataTask:didReceive:completionHandler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 115,
+      "symbol": "NetworkManager.urlSession(_:dataTask:didReceive:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 121,
+      "symbol": "NetworkManager.urlSession(_:downloadTask:didFinishDownloadingTo:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/NetworkManager.swift",
+      "line": 132,
+      "symbol": "NetworkManager.urlSession(_:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 15,
+      "symbol": "WeatherKit",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 18,
+      "symbol": "WeatherKit.realmPath",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 25,
+      "symbol": "WeatherKit.WeatherResult",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 26,
+      "symbol": "WeatherKit.WeatherResult.success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 27,
+      "symbol": "WeatherKit.WeatherResult.cities",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/vince/Dev/Apple/WeatherSampleiOS/WeatherKit/WeatherKit.swift",
+      "line": 28,
+      "symbol": "WeatherKit.WeatherResult.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/vince/Dev/Apple/WeatherSampleiOS"
+}

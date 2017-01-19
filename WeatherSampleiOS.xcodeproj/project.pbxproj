@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		61B287991E313789003B5DE8 /* Jazzy Docs */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 61B2879A1E313789003B5DE8 /* Build configuration list for PBXAggregateTarget "Jazzy Docs" */;
+			buildPhases = (
+				61B2879D1E313790003B5DE8 /* Jazzy Docs */,
+			);
+			dependencies = (
+			);
+			name = "Jazzy Docs";
+			productName = "Jazzy Docs";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		16693ACBA4BF615E219838C1 /* Pods_WeatherKitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C574C3A826B5BFBB985B35 /* Pods_WeatherKitTests.framework */; };
 		6123B70A1E305D8600A8CFF5 /* RealmFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123B7091E305D8600A8CFF5 /* RealmFetchable.swift */; };
@@ -725,6 +739,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 61513ECE1E2FAF7A005FC250;
 					};
+					61B287991E313789003B5DE8 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = SP7UUHBXPL;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 61513ECA1E2FAF7A005FC250 /* Build configuration list for PBXProject "WeatherSampleiOS" */;
@@ -748,6 +767,7 @@
 				61513F141E2FAFCD005FC250 /* WeatherKitTests */,
 				61513F251E2FAFEE005FC250 /* Watch */,
 				61513F311E2FAFEE005FC250 /* Watch Extension */,
+				61B287991E313789003B5DE8 /* Jazzy Docs */,
 			);
 		};
 /* End PBXProject section */
@@ -909,6 +929,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WeatherSampleiOS/Pods-WeatherSampleiOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		61B2879D1E313790003B5DE8 /* Jazzy Docs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Jazzy Docs";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "jazzy \\\n--clean \\\n--author Vince Davis \\\n--author_url https://vincedavis.com \\\n--github_url https://github.com/vinced45/WeatherSampleiOS \\\n--github-file-prefix https://github.com/vinced45/WeatherSampleiOS/tree/master \\\n--module-version 0.0.1 \\\n--xcodebuild-arguments -scheme,WeatherKit \\\n--module WeatherKit \\\n--root-url https://github.com/vinced45/WeatherSampleiOS/tree/master \\\n--output Docs";
 		};
 		897AE23BB764DD081C7FE66D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1520,6 +1554,22 @@
 			};
 			name = Release;
 		};
+		61B2879B1E313789003B5DE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = SP7UUHBXPL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		61B2879C1E313789003B5DE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = SP7UUHBXPL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1603,6 +1653,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		61B2879A1E313789003B5DE8 /* Build configuration list for PBXAggregateTarget "Jazzy Docs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61B2879B1E313789003B5DE8 /* Debug */,
+				61B2879C1E313789003B5DE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

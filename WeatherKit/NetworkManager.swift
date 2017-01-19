@@ -10,7 +10,7 @@ import Foundation
 
 let network = NetworkManager()
 
-public class NetworkManager: NSObject {
+class NetworkManager: NSObject {
     
     // MARK: Properties
     let queue = DispatchQueue(label: "Networking Queue")
