@@ -22,16 +22,6 @@ target 'WeatherSampleiOS' do
     pod 'WeatherKit', :path => '.'
 end
 
-target 'Watch Extension' do
-    #inherit! :search_paths
-    pod 'WeatherKit', :path => '.'
-end
-
-target 'Today' do
-    #inherit! :search_paths
-    pod 'WeatherKit', :path => '.'
-end
-
 #   Disable Code Coverage for Pods projects
 post_install do |installer_representation|
     installer_representation.pods_project.targets.each do |target|
