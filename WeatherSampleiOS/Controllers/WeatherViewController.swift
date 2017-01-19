@@ -23,6 +23,8 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     
     var refresh: UIRefreshControl!
     
+    var timer: Timer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,12 +41,13 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateConditions()
+        startTimer() // Default time is 5 minutes to refresh weather conditions
         startFetches()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+        stopTimer()
         stopFetches()
     }
 
@@ -78,16 +81,10 @@ class WeatherViewController: UITableViewController, RealmFetchable {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         
-        
+        var forecast = Forecast()
         if indexPath.section == 0 {
-            if let forecast = currentLocation?.first {
-                DispatchQueue.main.async {
-                    cell.nameLabel.text = forecast.city
-                    cell.tempLabel.text = "\(Int(round(forecast.temp)))°"
-                    cell.iconLabel.text = forecast.getEmoji()
-                    cell.topDetailLabel.text = "UTC: \(forecast.timezone) ● Last Updated: \(forecast.updatedAt.shortStyle())"
-                    cell.bottomDetailLabel.text = "Humidity: \(forecast.humidity)% ● Windspeed: \(forecast.windspeed) mph"
-                }
+            if let f = currentLocation?.first {
+                forecast = f
             } else {
                 DispatchQueue.main.async {
                     cell.nameLabel.text = "No conditions avaiable"
@@ -98,15 +95,17 @@ class WeatherViewController: UITableViewController, RealmFetchable {
                 }
             }
         } else {
-            if let forecast = savedLocations?[indexPath.row] {
-                DispatchQueue.main.async {
-                    cell.nameLabel.text = forecast.city
-                    cell.tempLabel.text = "\(Int(round(forecast.temp)))°"
-                    cell.iconLabel.text = forecast.getEmoji()
-                    cell.topDetailLabel.text = "UTC: \(forecast.timezone) ● Last Updated: \(forecast.updatedAt.shortStyle())"
-                    cell.bottomDetailLabel.text = "Humidity: \(forecast.humidity)% ● Windspeed: \(forecast.windspeed) mph"
-                }
+            if let f = savedLocations?[indexPath.row] {
+                forecast = f
             }
+        }
+        
+        DispatchQueue.main.async {
+            cell.nameLabel.text = forecast.city
+            cell.tempLabel.text = "\(Int(round(forecast.temp)))°"
+            cell.iconLabel.text = forecast.getEmoji()
+            cell.topDetailLabel.text = "UTC: \(forecast.timezone) ● Last Updated: \(forecast.updatedAt.shortStyle())"
+            cell.bottomDetailLabel.text = "Humidity: \(forecast.humidity)% ● Windspeed: \(forecast.windspeed) mph"
         }
         
         return cell
@@ -157,6 +156,15 @@ extension WeatherViewController {
         if let token = savedLocationstoken {
             stopFetch(token)
         }
+    }
+    
+    func startTimer(refreshTime: TimeInterval = 300) {
+        timer = Timer.scheduledTimer(timeInterval: refreshTime, target: self, selector: #selector(updateConditions), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     func updateConditions() {

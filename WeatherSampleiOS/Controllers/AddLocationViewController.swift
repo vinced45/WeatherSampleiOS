@@ -55,7 +55,9 @@ class AddLocationViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
 
         if let placemark: CLPlacemark = placemarks?[indexPath.row] {
-            cell.nameLabel?.text = "\(placemark.locality ?? ""), \(placemark.country ?? "")"
+            DispatchQueue.main.async {
+                cell.nameLabel?.text = "\(placemark.locality ?? ""), \(placemark.country ?? "")"
+            }
         }
 
         return cell

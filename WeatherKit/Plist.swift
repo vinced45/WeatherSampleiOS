@@ -102,8 +102,9 @@ class QBPlist {
         if let _ = Plist(name: name, bundle: bundle) {
             plistFileName = name
             log.verbose("plist started")
+        } else {
+            log.error("error")
         }
-        log.error("error")
     }
     
     func allItems() -> NSDictionary? {
